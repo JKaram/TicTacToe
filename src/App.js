@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
-import _ from "lodash";
 
 import Board from "./components/board";
 
@@ -21,9 +20,8 @@ const rows = [
 ];
 
 const checkForWin = (array, checks) => {
-  for (let check of checks) {
-    if (_.includes(array, check)) return true;
-    console.log("Here");
+  for (let row of checks) {
+    if (row.every((num) => array.includes(num))) return true;
   }
   return false;
 };
@@ -45,8 +43,8 @@ function App() {
 
   useEffect(() => {
     playerOneTurn
-      ? setIsWon(checkForWin(playerOne, rows))
-      : setIsWon(checkForWin(playerTwo, rows));
+      ? setIsWon(checkForWin(playerTwo, rows))
+      : setIsWon(checkForWin(playerOne, rows));
   }, [playerOne, playerTwo]);
 
   return (

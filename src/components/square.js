@@ -6,12 +6,15 @@ const Block = styled.div`
   height: 100px;
   border: 1px solid black;
   text-align: center;
+
+  font-size: 40px;
 `;
 
 const Square = (props) => {
   const [value, setValue] = useState();
 
   const changePlayer = () => {
+    if (value) return null;
     setValue(props.playerOneTurn ? "X" : "O");
     props.setPlayerOneTurn(!props.playerOneTurn);
     props.setPick(props.id);
