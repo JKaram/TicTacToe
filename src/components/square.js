@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Block = styled.div`
-  width: 50px;
-  height: 50px;
-  border: 1px solid #000;
-
+  flex: 0 32%;
+  height: 100px;
+  border: 1px solid black;
   text-align: center;
 `;
 
 const Square = (props) => {
-  return <Block>{props.children}</Block>;
+  const [value, setValue] = useState();
+
+  const changePlayer = () => {
+    setValue(props.playerOneTurn ? "X" : "O");
+    props.setPlayerOneTurn(!props.playerOneTurn);
+    props.setPick(props.id);
+  };
+
+  return <Block onClick={() => changePlayer()}>{value}</Block>;
 };
 
 export default Square;
