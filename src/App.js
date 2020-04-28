@@ -5,6 +5,7 @@ import Board from "./components/board";
 
 const Wrapper = Styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
 `;
 
@@ -32,6 +33,7 @@ function App() {
   const [playerTwo, setPlayerTwo] = useState([]);
   const [playerOneTurn, setPlayerOneTurn] = useState(true);
   const [isWon, setIsWon] = useState(false);
+  const [winner, setWinner] = useState();
 
   useEffect(() => {
     if (pick === -1) return setPlayerOne([]);
@@ -39,18 +41,24 @@ function App() {
     playerOneTurn
       ? setPlayerTwo([...playerTwo, pick])
       : setPlayerOne([...playerOne, pick]);
+    // eslint-disable-next-line
   }, [pick]);
 
   useEffect(() => {
-    playerOneTurn
-      ? setIsWon(checkForWin(playerTwo, rows))
-      : setIsWon(checkForWin(playerOne, rows));
+    if (playerOneTurn) {
+      setIsWon(checkForWin(playerTwo, rows));
+      setWinner("O");
+    } else {
+      setIsWon(checkForWin(playerOne, rows));
+      setWinner("X");
+    }
+    // eslint-disable-next-line
   }, [playerOne, playerTwo]);
 
   return (
     <Wrapper>
       <h1>Tic Tac Toe</h1>
-      {isWon && <div>YOU WON</div>}
+      {isWon && <div>{`${winner}`} WON</div>}
       <Board
         playerOneTurn={playerOneTurn}
         setPlayerOneTurn={setPlayerOneTurn}

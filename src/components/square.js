@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const Block = styled.div`
-  flex: 0 32%;
-  height: 100px;
+  flex: 33%;
+  height: 150px;
   border: 1px solid black;
-  text-align: center;
+  font-size: 70px;
+`;
 
-  font-size: 40px;
+const Icon = styled.div`
+  margin: 0 auto;
+  width: fit-content;
 `;
 
 const Square = (props) => {
@@ -20,7 +23,11 @@ const Square = (props) => {
     props.setPick(props.id);
   };
 
-  return <Block onClick={() => changePlayer()}>{value}</Block>;
+  return (
+    <Block onClick={() => changePlayer()}>
+      <Icon>{value}</Icon>
+    </Block>
+  );
 };
 
 export default Square;
